@@ -1,17 +1,10 @@
 import courseModel from "../../Model/Courses/courseModel.js";
-// import fs from "fs".promise;
 
 const courseController = {
   createCourse: async (req, res) => {
     const { title, price, description, imageUrl, videoUrl } = req.body;
 
     try {
-      // const imageBuffer = await fs.readFile('path/to/image.jpg');
-
-      //   await courseModel.create({
-      //       imageUrl: imageBuffer
-      //   });
-      // Create a new course record in the database
       const course = await courseModel.create({
         title,
         price,
@@ -43,7 +36,7 @@ const courseController = {
   getSingleCourse: async (req, res) => {
     const { id } = req.params;
     try {
-      let course = await courseModel.findOne(id);
+      let course = await courseModel.findByPk(id);
       if (!course) {
         return res.status(400).json({ message: "Course not found" });
       }
